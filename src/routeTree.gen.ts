@@ -15,8 +15,10 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
+import { Route as DashboardCategoriesRouteImport } from './routes/dashboard.categories'
 import { Route as RecipesIndexRouteImport } from './routes/recipes.index'
 import { Route as RecipesSlugRouteImport } from './routes/recipes.$slug'
+import { Route as DashboardRecipesIndexRouteImport } from './routes/dashboard.recipes.index'
 import { Route as DashboardRecipesNewRouteImport } from './routes/dashboard.recipes.new'
 
 const IndexRoute = IndexRouteImport.update({
@@ -49,6 +51,11 @@ const AuthRegisterRoute = AuthRegisterRouteImport.update({
   path: '/auth/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardCategoriesRoute = DashboardCategoriesRouteImport.update({
+  id: '/dashboard/categories',
+  path: '/dashboard/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RecipesIndexRoute = RecipesIndexRouteImport.update({
   id: '/recipes/',
   path: '/recipes/',
@@ -57,6 +64,11 @@ const RecipesIndexRoute = RecipesIndexRouteImport.update({
 const RecipesSlugRoute = RecipesSlugRouteImport.update({
   id: '/recipes/$slug',
   path: '/recipes/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRecipesIndexRoute = DashboardRecipesIndexRouteImport.update({
+  id: '/dashboard/recipes/',
+  path: '/dashboard/recipes/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRecipesNewRoute = DashboardRecipesNewRouteImport.update({
@@ -72,9 +84,11 @@ export interface FileRoutesByFullPath {
   '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes/': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes/': typeof DashboardRecipesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,9 +97,11 @@ export interface FileRoutesByTo {
   '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes': typeof DashboardRecipesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,9 +111,11 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes/': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes/': typeof DashboardRecipesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -108,9 +126,11 @@ export interface FileRouteTypes {
     | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes/'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -119,9 +139,11 @@ export interface FileRouteTypes {
     | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes'
   id:
     | '__root__'
     | '/'
@@ -130,9 +152,11 @@ export interface FileRouteTypes {
     | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes/'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -142,9 +166,11 @@ export interface RootRouteChildren {
   SearchRoute: typeof SearchRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
+  DashboardCategoriesRoute: typeof DashboardCategoriesRoute
   RecipesSlugRoute: typeof RecipesSlugRoute
   RecipesIndexRoute: typeof RecipesIndexRoute
   DashboardRecipesNewRoute: typeof DashboardRecipesNewRoute
+  DashboardRecipesIndexRoute: typeof DashboardRecipesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -191,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/categories': {
+      id: '/dashboard/categories'
+      path: '/dashboard/categories'
+      fullPath: '/dashboard/categories'
+      preLoaderRoute: typeof DashboardCategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/recipes/': {
       id: '/recipes/'
       path: '/recipes'
@@ -203,6 +236,13 @@ declare module '@tanstack/react-router' {
       path: '/recipes/$slug'
       fullPath: '/recipes/$slug'
       preLoaderRoute: typeof RecipesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/recipes/': {
+      id: '/dashboard/recipes/'
+      path: '/dashboard/recipes'
+      fullPath: '/dashboard/recipes/'
+      preLoaderRoute: typeof DashboardRecipesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/recipes/new': {
@@ -222,9 +262,11 @@ const rootRouteChildren: RootRouteChildren = {
   SearchRoute: SearchRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
+  DashboardCategoriesRoute: DashboardCategoriesRoute,
   RecipesSlugRoute: RecipesSlugRoute,
   RecipesIndexRoute: RecipesIndexRoute,
   DashboardRecipesNewRoute: DashboardRecipesNewRoute,
+  DashboardRecipesIndexRoute: DashboardRecipesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
