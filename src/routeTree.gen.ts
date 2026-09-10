@@ -12,10 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as AuthRegisterRouteImport } from './routes/auth.register'
+import { Route as DashboardCategoriesRouteImport } from './routes/dashboard.categories'
 import { Route as RecipesIndexRouteImport } from './routes/recipes.index'
 import { Route as RecipesSlugRouteImport } from './routes/recipes.$slug'
+import { Route as DashboardRecipesIndexRouteImport } from './routes/dashboard.recipes.index'
 import { Route as DashboardRecipesNewRouteImport } from './routes/dashboard.recipes.new'
 
 const IndexRoute = IndexRouteImport.update({
@@ -33,6 +36,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/auth/login',
   path: '/auth/login',
@@ -41,6 +49,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
   id: '/auth/register',
   path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardCategoriesRoute = DashboardCategoriesRouteImport.update({
+  id: '/dashboard/categories',
+  path: '/dashboard/categories',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RecipesIndexRoute = RecipesIndexRouteImport.update({
@@ -53,6 +66,11 @@ const RecipesSlugRoute = RecipesSlugRouteImport.update({
   path: '/recipes/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardRecipesIndexRoute = DashboardRecipesIndexRouteImport.update({
+  id: '/dashboard/recipes/',
+  path: '/dashboard/recipes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRecipesNewRoute = DashboardRecipesNewRouteImport.update({
   id: '/dashboard/recipes/new',
   path: '/dashboard/recipes/new',
@@ -63,32 +81,41 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes/': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes/': typeof DashboardRecipesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes': typeof DashboardRecipesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/profile': typeof ProfileRoute
+  '/search': typeof SearchRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
+  '/dashboard/categories': typeof DashboardCategoriesRoute
   '/recipes/$slug': typeof RecipesSlugRoute
   '/recipes/': typeof RecipesIndexRoute
   '/dashboard/recipes/new': typeof DashboardRecipesNewRoute
+  '/dashboard/recipes/': typeof DashboardRecipesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,42 +123,54 @@ export interface FileRouteTypes {
     | '/'
     | '/categories'
     | '/profile'
+    | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes/'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/categories'
     | '/profile'
+    | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes'
   id:
     | '__root__'
     | '/'
     | '/categories'
     | '/profile'
+    | '/search'
     | '/auth/login'
     | '/auth/register'
+    | '/dashboard/categories'
     | '/recipes/$slug'
     | '/recipes/'
     | '/dashboard/recipes/new'
+    | '/dashboard/recipes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriesRoute: typeof CategoriesRoute
   ProfileRoute: typeof ProfileRoute
+  SearchRoute: typeof SearchRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
+  DashboardCategoriesRoute: typeof DashboardCategoriesRoute
   RecipesSlugRoute: typeof RecipesSlugRoute
   RecipesIndexRoute: typeof RecipesIndexRoute
   DashboardRecipesNewRoute: typeof DashboardRecipesNewRoute
+  DashboardRecipesIndexRoute: typeof DashboardRecipesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -157,6 +196,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/login': {
       id: '/auth/login'
       path: '/auth/login'
@@ -169,6 +215,13 @@ declare module '@tanstack/react-router' {
       path: '/auth/register'
       fullPath: '/auth/register'
       preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/categories': {
+      id: '/dashboard/categories'
+      path: '/dashboard/categories'
+      fullPath: '/dashboard/categories'
+      preLoaderRoute: typeof DashboardCategoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/recipes/': {
@@ -185,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecipesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/recipes/': {
+      id: '/dashboard/recipes/'
+      path: '/dashboard/recipes'
+      fullPath: '/dashboard/recipes/'
+      preLoaderRoute: typeof DashboardRecipesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard/recipes/new': {
       id: '/dashboard/recipes/new'
       path: '/dashboard/recipes/new'
@@ -199,11 +259,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriesRoute: CategoriesRoute,
   ProfileRoute: ProfileRoute,
+  SearchRoute: SearchRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
+  DashboardCategoriesRoute: DashboardCategoriesRoute,
   RecipesSlugRoute: RecipesSlugRoute,
   RecipesIndexRoute: RecipesIndexRoute,
   DashboardRecipesNewRoute: DashboardRecipesNewRoute,
+  DashboardRecipesIndexRoute: DashboardRecipesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
