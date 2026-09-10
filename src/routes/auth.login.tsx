@@ -5,9 +5,10 @@ import { useStore } from "@/lib/store";
 import { GoogleButton } from "@/components/GoogleButton";
 
 export const Route = createFileRoute("/auth/login")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    redirect: typeof search.redirect === "string" ? search.redirect : "",
-  }),
+  validateSearch: (search: Record<string, unknown>): { redirect?: string } => {
+    const r = search["redirect"];
+    return typeof r === "string" && r.startsWith("/") ? { redirect: r } : {};
+  },
   head: () => ({
     meta: [
       { title: "Sign in — Culinary Blog" },
