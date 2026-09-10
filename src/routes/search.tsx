@@ -6,12 +6,12 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { useStore } from "@/lib/store";
 
 type SearchParams = {
-  q?: string;
-  category?: string;
-  difficulty?: string;
-  maxTime?: number;
-  sort?: string;
-  page?: number;
+  q?: string | undefined;
+  category?: string | undefined;
+  difficulty?: string | undefined;
+  maxTime?: number | undefined;
+  sort?: string | undefined;
+  page?: number | undefined;
 };
 
 const str = (v: unknown) => (typeof v === "string" && v ? v : undefined);
